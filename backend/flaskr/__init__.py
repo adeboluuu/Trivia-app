@@ -10,6 +10,7 @@ from sqlalchemy import func
 
 QUESTIONS_PER_PAGE = 10
 
+
 def paginate_questions(request, selection):
     page = request.args.get('page', 1, type=int)
     start = (page - 1) * QUESTIONS_PER_PAGE
@@ -25,23 +26,20 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-
     # @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
 
     CORS(app)
 
-    # @TODO: Use the after_request decorator to set Access-Control-Allow
+    #@TODO: Use the after_request decorator to set Access-Control-Allow
 
     @app.after_request
     def after_request(response):
-        response.headers.add('Access-Control-Allow-Headers','Content-Type,Authorization,true')
-        response.headers.add('Access-Control-Allow-Methods','GET,POST,PUT,DELETE,OPTIONS')
-
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
 
         return response
 
-    #  @TODO:Create an endpoint to handle GET requests for all available categories.
-
+    # @TODO:Create an endpoint to handle GET requests for all available categories.
     @app.route('/categories')
     def retrieve_categories():
         available_categories = Category.query.order_by(Category.type).all()
@@ -55,7 +53,6 @@ def create_app(test_config=None):
             'categories': {category.id: category.type for category in available_categories},
             'total_categories' : len(Category.query.all())
         })
-
     """
     @TODO:
     Create an endpoint to handle GET requests for questions,
