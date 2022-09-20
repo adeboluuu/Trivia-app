@@ -1,12 +1,18 @@
+from importlib.resources import path
 import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
+from dotenv import load_dotenv
 
-DB_NAME = os.getenv['DB_NAME','trivia']
-DB_USER =os.getenv['DB_USER','postgres']
-DB_PASSWORD = os.getenv['DB_PASSWORD''adeboluwarin']
-DB_HOST = os.getenv['DB_PASSWORD','127.0.0.1:5432']
+path = os.path.dirname(os.path.dirname(__file__))
+env_file = os.path.join(path,".env")
+load_dotenv(env_file)
+
+DB_NAME = os.getenv['DB_NAME']
+DB_USER =os.getenv['DB_USER']
+DB_PASSWORD = os.getenv['DB_PASSWORD']
+DB_HOST = os.getenv['DB_HOST']
 DB_PATH = 'postgresql://{}:{}@{}/{}'.format(DB_USER,DB_PASSWORD,DB_HOST, DB_NAME)
 
 db = SQLAlchemy()
