@@ -2,12 +2,11 @@ import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
-from settings import DB_NAME, DB_USER, DB_PASSWORD
 
-DB_NAME = os.getenv['trivia']
-DB_USER =os.getenv['postgres']
-DB_PASSWORD = os.getenv['adeboluwarin']
-DB_HOST = os.getenv['127.0.0.1:5432']
+DB_NAME = os.getenv['DB_NAME','trivia']
+DB_USER =os.getenv['DB_USER','postgres']
+DB_PASSWORD = os.getenv['DB_PASSWORD''adeboluwarin']
+DB_HOST = os.getenv['DB_PASSWORD','127.0.0.1:5432']
 DB_PATH = 'postgresql://{}:{}@{}/{}'.format(DB_USER,DB_PASSWORD,DB_HOST, DB_NAME)
 
 db = SQLAlchemy()
